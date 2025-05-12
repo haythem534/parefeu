@@ -16,6 +16,8 @@ services:
       - ./business.log:/app/business.log
       - ./config/suricata.yaml:/etc/suricata/suricata.yaml
       - ./config/10-monprojet.conf:/etc/rsyslog.d/10-monprojet.conf
+    environment:
+      - SURICATA_INTERFACE=${INTERFACE}
     env_file:
       - .env
     restart: unless-stopped
