@@ -1,16 +1,13 @@
 version: "3.9"
 services:
   monparefeu:
-    build:
-      context: .
-      network: host
-    image: monparefeu:latest
+    image: haythembj/parefeu:latest
     network_mode: "host"
     container_name: parefeu
-    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
+      - SYS_ADMIN
     devices:
       - "/dev/net/tun"
     volumes:
