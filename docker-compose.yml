@@ -14,7 +14,7 @@ services:
     volumes:
       - ./config/nftables.conf:/etc/nftables.conf
       - ./business.log:/app/business.log
-      - ./config/templates/suricata.yaml:/etc/suricata/suricata.yaml
+      - ./config/templates/:/etc/suricata/templates/
       - ./config/10-monprojet.conf:/etc/rsyslog.d/10-monprojet.conf
     environment:
       - SURICATA_INTERFACE=${INTERFACE}
