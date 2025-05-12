@@ -10,7 +10,7 @@ services:
       - NET_RAW
       - SYS_MODULE
     devices:
-      - "/dev/net/tun"
+      - "/dev/net/tun:/dev/net/tun:rwm"
     volumes:
       - ./config/nftables.conf:/etc/nftables.conf
       - ./business.log:/app/business.log
