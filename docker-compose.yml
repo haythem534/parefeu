@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  monparefeu:
+    build:
+      context: .
+      network: host
+    image: monparefeu:latest
+    network_mode: "host"
+    container_name: parefeu
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+      - "/dev/net/tun"
+    volumes:
+      - ./config/nftables.conf:/etc/nftables.conf
+      - ./business.log:/app/business.log
+      - ./config/suricata.yaml:/etc/suricata/suricata.yaml
+      - ./config/10-monprojet.conf:/etc/rsyslog.d/10-monprojet.conf
+    env_file:
+      - .env
+    restart: unless-stopped
