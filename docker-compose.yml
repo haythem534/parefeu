@@ -12,6 +12,7 @@ services:
     devices:
       - "/dev/net/tun:/dev/net/tun:rwm"
     volumes:
+      - /dev/log:/dev/log
       - ./config/nftables.conf:/etc/nftables.conf
       - ./business.log:/app/business.log
       - ./config/templates/:/etc/suricata/templates/
