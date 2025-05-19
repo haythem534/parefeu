@@ -1,26 +1,51 @@
-version: "3.9"
+#version: "3.9"
+
 services:
+
+  rsyslog:
+    image: rsyslog/syslog_appliance_alpine:latest
+    container_name: rsyslog
+    volumes:
+      - ./config/rsyslog:/etc/rsyslog.d/:ro
+      - ./logs:/var/log:rw
+    restart: unless-stopped
+
+
+
+  suricata:
+    image: jasonish/suricata:latest
+    container_name: suricata
+    network_mode: "host"
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+      - SYS_NICE
+    volumes:
+      - ./config/suricata/suricata.yaml:/etc/suricata/suricata.yaml:rw
+      - ./logs/suricata:/var/log/suricata:rw
+    environment:
+      - RSYSLOG_SERVER=localhost
+      - INTERFACE=${SURICATA_INTERFACE}
+      - SURICATA_UPDATE_RULES=0
+    command: [
+      "-c", "/etc/suricata/suricata.yaml",
+      "-i", "${SURICATA_INTERFACE}",
+    ]
+    restart: unless-stopped
+
   monparefeu:
     image: haythembj/parefeu:latest
-    network_mode: "host"
     container_name: parefeu
-    privileged: true
-    sysctls:
-      net.ipv4.ip_forward: '1'
+    userns_mode: "host"
+    network_mode: "host"
     cap_add:
       - NET_ADMIN
-      - NET_RAW
-      - SYS_MODULE
-    devices:
-      - "/dev/net/tun:/dev/net/tun:rwm"
     volumes:
-      - ./config/wireguard/:/etc/wireguard/
-      - ./config/nftables.conf:/etc/nftables.conf
-      - ./business.log:/app/business.log
-      - ./config/templates/:/etc/suricata/templates/
-      - ./config/10-monprojet.conf:/etc/rsyslog.d/10-monprojet.conf
+      - ./logs/monprojet.log:/var/log/monprojet.log:rw
+      - ./logs/suricata:/var/log/suricata:rw
+    depends_on:
+      - rsyslog
+      - suricata
     environment:
-      - SURICATA_INTERFACE=${INTERFACE}
-    env_file:
-      - .env
+      - RSYSLOG_SERVER=localhost
     restart: unless-stopped
