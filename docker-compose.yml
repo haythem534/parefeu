@@ -25,11 +25,11 @@ services:
       - ./logs/suricata:/var/log/suricata:rw
     environment:
       - RSYSLOG_SERVER=localhost
-      - INTERFACE=${SURICATA_INTERFACE}
+      - INTERFACE=${INTERFACE}
       - SURICATA_UPDATE_RULES=0
     command: [
       "-c", "/etc/suricata/suricata.yaml",
-      "-i", "${SURICATA_INTERFACE}",
+      "-i", "${INTERFACE}",
     ]
     restart: unless-stopped
 
