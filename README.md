@@ -25,9 +25,10 @@ git clone https://github.com/haythem534/parefeu.git
 cd parefeu
 
 2. récuperer l’image docker
+
 docker pull haythembj/parefeu:latest
 
-2. Configurer l’interface réseau
+3. Configurer l’interface réseau
 
 Dans le fichier .env, indiquez l'interface réseau principale (par exemple enp0s3, eth0, ens33, etc.) :
 
