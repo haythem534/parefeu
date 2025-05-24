@@ -54,7 +54,7 @@ Mot de passe : Admin123
 
 > Vous pouvez modifier les identifiants depuis l’interface web une fois connecté.
 
-créez une configuration vpn puis copiez la configuration client vers le fichier /etc/wireguard/wg0.conf sur une autre machine client puis lancer l’interface wireguard "wg-quick up wg0" et un tunnel vpn vient d’etre crée.
+créez une configuration vpn puis copiez la configuration client vers le fichier /etc/wireguard/wg0.conf sur une autre machine client (la machine client doit etre sur un autre reseau que la machine serveur EX:autre wi-fi) puis lancer l’interface wireguard "wg-quick up wg0" et un tunnel vpn vient d’etre crée.
 vous pouvez aussi scanner le QR code pour wireguard mobile
 
 
